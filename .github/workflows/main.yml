@@ -12,16 +12,17 @@ jobs:
           - 3.0
           - 3.1
         rails:
+          - 6.0.5
           - 6.1.0
           - 7.0.0
     env:
       RAILS_VERSION: "~> ${{ matrix.rails }}"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
-    - name: Run the default task
-      run: bundle exec rake
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Run the default task
+        run: bundle exec rake
