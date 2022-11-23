@@ -6,7 +6,7 @@ module ScoutApm
       include Callbacks
 
       def self.included(parent)
-        parent.before_perform :sample_requests_for_scout
+        parent.before_perform :sample_workers_for_scout
       end
     end
   end

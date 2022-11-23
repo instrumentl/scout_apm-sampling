@@ -9,7 +9,7 @@ class WorkerTest < ActiveJob::TestCase
   end
 
   teardown do
-    ENV.delete("SCOUT_APM_SAMPLING_RATE")
+    ScoutApm::Sampling::Callbacks.const_set(:SCOUT_APM_WORKER_SAMPLING_RATE, 1.0)
   end
 
   def test_sampling_with_default_sampling_rate
@@ -17,7 +17,7 @@ class WorkerTest < ActiveJob::TestCase
   end
 
   def test_sampling_based_on_environment_variable
-    ENV["SCOUT_APM_SAMPLING_RATE"] = "0"
+    ScoutApm::Sampling::Callbacks.const_set(:SCOUT_APM_WORKER_SAMPLING_RATE, 0)
 
     expect_transaction_ignored
   end
