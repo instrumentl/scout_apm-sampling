@@ -2,7 +2,7 @@ require_relative "lib/scout_apm/sampling/version"
 
 # This environment variable is set on CI to facilitate testing with multiple
 # versions of Rails.
-RAILS_DEPENDENCY_VERSION = ENV.fetch("RAILS_VERSION", ">= 6.1")
+RAILS_DEPENDENCY_VERSION = ENV.fetch("RAILS_VERSION", ">= 6.0.5")
 
 Gem::Specification.new do |spec|
   spec.name          = "scout_apm-sampling"
