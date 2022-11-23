@@ -17,6 +17,11 @@ class ControllerTest < ActionController::TestCase
 
   teardown do
     ENV.delete("SCOUT_APM_SAMPLING_RATE")
+    ScoutApm::Sampling::Callbacks.const_set(:SCOUT_APM_SAMPLING_RATE, 1.0)
+  end
+
+  def reload_module
+    load "lib/scout_apm/sampling/callbacks.rb"
   end
 
   def test_sampling_with_default_sampling_rate
@@ -24,25 +29,21 @@ class ControllerTest < ActionController::TestCase
   end
 
   def test_sampling_based_on_environment_variable
-    ENV["SCOUT_APM_SAMPLING_RATE"] = "0"
+    ScoutApm::Sampling::Callbacks.const_set(:SCOUT_APM_SAMPLING_RATE, 0)
 
     expect_transaction_ignored
   end
 
   def test_negative_sampling_rate_revert_back_to_default
     ENV["SCOUT_APM_SAMPLING_RATE"] = "-1"
+    reload_module
 
     expect_transaction_not_ignored
   end
 
   def test_empty_sampling_rate_revert_back_to_default
     ENV["SCOUT_APM_SAMPLING_RATE"] = ""
-
-    expect_transaction_not_ignored
-  end
-
-  def test_non_decimal_sampling_rate_revert_back_to_default
-    ENV["SCOUT_APM_SAMPLING_RATE"] = "a"
+    reload_module
 
     expect_transaction_not_ignored
   end
