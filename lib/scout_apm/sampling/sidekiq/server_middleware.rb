@@ -1,3 +1,5 @@
+require_relative "../callbacks"
+
 module ScoutApm
   module Sampling
     module Sidekiq
