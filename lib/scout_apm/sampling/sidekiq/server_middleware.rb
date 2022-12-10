@@ -1,9 +1,11 @@
+require_relative "../callbacks"
+
 module ScoutApm
   module Sampling
     module Sidekiq
-      include Callbacks
-
       class ServerMiddleware
+        include Callbacks
+
         # @param [Object] worker the worker instance
         # @param [Hash] job the full job payload
         #   * @see https://github.com/mperham/sidekiq/wiki/Job-Format
