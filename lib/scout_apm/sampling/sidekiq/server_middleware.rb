@@ -5,6 +5,7 @@ module ScoutApm
     module Sidekiq
       class ServerMiddleware
         include Callbacks
+        include ::Sidekiq::ServerMiddleware
 
         # @param [Object] worker the worker instance
         # @param [Hash] job the full job payload
